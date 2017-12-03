@@ -78,8 +78,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Laser.cs" />
     <Compile Include="Assets\Scripts\Interactive.cs" />
+    <Compile Include="Assets\Scripts\Laser.cs" />
     <Compile Include="Assets\Scripts\MenuGesture.cs" />
     <Compile Include="Assets\Scripts\RotatingMenu.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />

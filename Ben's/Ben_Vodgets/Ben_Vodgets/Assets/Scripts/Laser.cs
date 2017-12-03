@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : SteamVR_TrackedController {
+public class Laser : SteamVR_TrackedController
+{
 
     LineRenderer line;
     SteamVR_TrackedController controller = null;
@@ -32,7 +33,7 @@ public class Laser : SteamVR_TrackedController {
 
 
     // Update is called once per frame
-    protected override void Update ()
+    protected override void Update()
     {
         base.Update();
 
@@ -46,7 +47,7 @@ public class Laser : SteamVR_TrackedController {
 
         // hold info for what ever the ray hits
         RaycastHit hit;
-        if(Physics.Raycast(this.transform.position, v, out hit, 10))
+        if (Physics.Raycast(this.transform.position, v, out hit, 10))
         {
             currFocus = hit.collider.gameObject;
             //print(hit.collider.gameObject.name);
@@ -64,9 +65,11 @@ public class Laser : SteamVR_TrackedController {
 
         if (currFocus != null)
         {
-            // grab what you pointing to
-            currFocus.transform.SetParent(this.transform, true);
-
+            if (currFocus.gameObject.tag == "CanGrab")
+            {
+                // grab what you pointing to
+                currFocus.transform.SetParent(this.transform, true);
+            }
             Interactive l = currFocus.GetComponent<Interactive>();
             if (l != null)
             {
