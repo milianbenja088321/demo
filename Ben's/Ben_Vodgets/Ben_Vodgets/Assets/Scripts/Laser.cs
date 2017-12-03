@@ -7,9 +7,10 @@ public class Laser : SteamVR_TrackedController
 
     LineRenderer line;
     SteamVR_TrackedController controller = null;
-    public float angle = 30;
     GameObject currFocus = null;
 
+    public float angle = 30;
+    public int lengthOfRay = 7;
     // Use this for initialization
     void Start()
     {
@@ -29,6 +30,13 @@ public class Laser : SteamVR_TrackedController
     void OnUnClicked(object sender, ClickedEventArgs e)
     {
         line.enabled = false;
+
+
+        if (currFocus != null)
+        {
+            // let go of what is being grabbed
+            currFocus.transform.SetParent(null);
+        }
     }
 
 
@@ -41,13 +49,13 @@ public class Laser : SteamVR_TrackedController
 
         line.SetPosition(0, this.transform.position);
         Quaternion q = Quaternion.AngleAxis(angle, transform.right);
-        Vector3 v = q * (this.transform.forward * 10);
+        Vector3 v = q * (this.transform.forward * lengthOfRay);
         Vector3 targetPos = this.transform.position + v;
         line.SetPosition(1, targetPos);
 
         // hold info for what ever the ray hits
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, v, out hit, 10))
+        if (Physics.Raycast(this.transform.position, v, out hit, lengthOfRay))
         {
             currFocus = hit.collider.gameObject;
             //print(hit.collider.gameObject.name);
@@ -75,17 +83,6 @@ public class Laser : SteamVR_TrackedController
             {
                 l.something();
             }
-        }
-    }
-
-    public override void OnTriggerUnclicked(ClickedEventArgs e)
-    {
-        base.OnTriggerUnclicked(e);
-
-        if (currFocus != null)
-        {
-            // let go of what is being grabbed
-            currFocus.transform.SetParent(null);
         }
     }
 }
