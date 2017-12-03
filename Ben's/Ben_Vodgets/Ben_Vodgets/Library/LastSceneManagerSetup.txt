@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Vodgets/Scenes/Grabbing_with_DirectSelector.unity
+  isLoaded: 1
+  isActive: 1
