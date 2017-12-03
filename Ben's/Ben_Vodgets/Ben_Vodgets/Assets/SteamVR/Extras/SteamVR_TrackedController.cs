@@ -34,10 +34,7 @@ public class SteamVR_TrackedController : MonoBehaviour
 	public event ClickedEventHandler Gripped;
 	public event ClickedEventHandler Ungripped;
 
-    LineRenderer line;
 
-    bool drawline = false;
-    public float angle = 30;
 	// Use this for initialization
 	protected virtual void Start()
 	{
@@ -59,7 +56,6 @@ public class SteamVR_TrackedController : MonoBehaviour
 			controllerIndex = (uint)this.GetComponent<SteamVR_TrackedObject>().index;
 		}
 
-        line = this.GetComponent<LineRenderer>();
 	}
 
 	public void SetDeviceIndex(int index)
@@ -67,20 +63,25 @@ public class SteamVR_TrackedController : MonoBehaviour
 		this.controllerIndex = (uint)index;
 	}
 
-	public virtual void OnTriggerClicked(ClickedEventArgs e)
+    /// <summary>
+    /// 
+    /// When trigger is pressed a linerender appears
+    /// this will be used to point/grab/drag/press
+    /// 
+    /// </summary>
+    /// <param name="e"></param>
+	public virtual void OnTriggerClicked(ClickedEventArgs e) 
 	{
 		if (TriggerClicked != null)
 			TriggerClicked(this, e);
-        line.enabled = true;
-        
+       
 	}
 
+    // Self explanitory
 	public virtual void OnTriggerUnclicked(ClickedEventArgs e)
 	{
 		if (TriggerUnclicked != null)
 			TriggerUnclicked(this, e);
-
-        line.enabled = false;
 	}
 
 	public virtual void OnMenuClicked(ClickedEventArgs e)
@@ -136,21 +137,20 @@ public class SteamVR_TrackedController : MonoBehaviour
 		if (Ungripped != null)
 			Ungripped(this, e);
 	}
-
+    
 	// Update is called once per frame
 	protected virtual void Update()
 	{
-        //line.SetPosition(0, )
-        line.SetPosition(0, this.transform.position);
-        Quaternion q = Quaternion.AngleAxis(angle, transform.right);
-        Vector3 v = q * (this.transform.forward * 10);
-        Vector3 targetPos = this.transform.position + v;
-        line.SetPosition(1, targetPos);
+        /// <summary>
+        /// CREATING A LINE THAT COMES FROM THE CONTROLLER
+        /// </summary>
 
-		var system = OpenVR.System;
+        var system = OpenVR.System;
 		if (system != null && system.GetControllerState(controllerIndex, ref controllerState, (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(VRControllerState_t))))
 		{
-			ulong trigger = controllerState.ulButtonPressed & (1UL << ((int)EVRButtonId.k_EButton_SteamVR_Trigger));
+           
+
+            ulong trigger = controllerState.ulButtonPressed & (1UL << ((int)EVRButtonId.k_EButton_SteamVR_Trigger));
 			if (trigger > 0L && !triggerPressed)
 			{
 				triggerPressed = true;
