@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-[RequireComponent(typeof(SteamVR_TrackedController))] 
+[RequireComponent(typeof(SteamVR_TrackedController))]
 
-public class MenuGesture : MonoBehaviour {
+public class MenuGesture : MonoBehaviour
+{
 
-    SteamVR_TrackedController controller;
-
+    SteamVR_TrackedController controller = null;
+    public GameObject worldMenu = null;
     LineRenderer line;
-    bool drawline = false;
+
+    bool isOpen = false;
 
     public float controllerRot;
     public float angle = 30;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         controller = GetComponent<SteamVR_TrackedController>();
 
         controller.TriggerClicked += OnClicked;
@@ -37,15 +40,30 @@ public class MenuGesture : MonoBehaviour {
         line.enabled = false;
     }
 
+    void OpenMenu(bool _isActive = false, GameObject _toInstantiate = null)
+    {
+        if (_isActive == false && _toInstantiate != null)
+            Instantiate(worldMenu);
+    }
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         line.SetPosition(0, this.transform.position);
         Quaternion q = Quaternion.AngleAxis(angle, transform.right);
         Vector3 v = q * (this.transform.forward * 10);
         Vector3 targetPos = this.transform.position + v;
         line.SetPosition(1, targetPos);
 
-        controllerRot = this.transform.localEulerAngles.z;
-        //print(this.transform.localPosition);    
+        controllerRot = this.transform.eulerAngles.z;
+        print(this.transform.localPosition);
+
+        if(controllerRot >= 80 && controllerRot < 110)
+        {
+            worldMenu.SetActive(true);
+        }
+        else
+        {
+            worldMenu.SetActive(false);
+        }
     }
 }
