@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Laser : SteamVR_TrackedController
 {
 
@@ -20,6 +20,7 @@ public class Laser : SteamVR_TrackedController
         controller.TriggerUnclicked += OnUnClicked;
 
         line = this.GetComponent<LineRenderer>();
+
     }
 
     void OnClicked(object sender, ClickedEventArgs e)
@@ -31,11 +32,34 @@ public class Laser : SteamVR_TrackedController
     {
         line.enabled = false;
 
+        Vector3 cVel = SteamVR_Controller.Input((int)controller.controllerIndex).velocity;
+        Vector3 aVel = SteamVR_Controller.Input((int)controller.controllerIndex).angularVelocity;
 
         if (currFocus != null)
         {
-            // let go of what is being grabbed
-            currFocus.transform.SetParent(null);
+            Interactive l = currFocus.GetComponent<Interactive>();
+            if (l != null)
+            {
+                if (l.type == Interactive.InteractiveTypes.Grab)
+                {
+                    l.Release(cVel);
+                }
+
+                //if (l.type == Interactive.InteractiveTypes.Marker)
+                //{
+                //    AnotationManager canvs = currFocus.GetComponent<AnotationManager>();
+                //    canvs.single.SetActive(false);
+                //}
+
+                if (l.type == Interactive.InteractiveTypes.Button)
+                {
+                    Button b = l.gameObject.GetComponent<Button>();
+                    if(b != null)
+                    {
+                        b.onClick.Invoke();
+                    }
+                }
+            }
         }
     }
 
@@ -58,6 +82,10 @@ public class Laser : SteamVR_TrackedController
         if (Physics.Raycast(this.transform.position, v, out hit, lengthOfRay))
         {
             currFocus = hit.collider.gameObject;
+
+            if (currFocus.gameObject.tag != "No Interaction")
+                SteamVR_Controller.Input((int)controller.controllerIndex).TriggerHapticPulse(3999);
+
             //print(hit.collider.gameObject.name);
         }
         else
@@ -73,16 +101,24 @@ public class Laser : SteamVR_TrackedController
 
         if (currFocus != null)
         {
-            if (currFocus.gameObject.tag == "CanGrab")
-            {
-                // grab what you pointing to
-                currFocus.transform.SetParent(this.transform, true);
-            }
             Interactive l = currFocus.GetComponent<Interactive>();
+
             if (l != null)
             {
-                l.something();
+                if (l.type == Interactive.InteractiveTypes.Grab)
+                {
+                    l.Grab(this.transform);
+                }
+
+                if (l.type == Interactive.InteractiveTypes.Marker)
+                {
+                    AnotationManager canvs = currFocus.GetComponent<AnotationManager>();
+                    canvs.single.SetActive(true);
+                }
+
             }
+
+
         }
     }
 }

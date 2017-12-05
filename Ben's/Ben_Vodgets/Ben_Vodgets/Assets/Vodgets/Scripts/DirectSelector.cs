@@ -74,7 +74,7 @@ namespace Vodgets
                 RemoveFocus(debounce_obj);
         }
 
-        // The trigger and rigidbody can either be on the tracked controller or a child of
+        // The trigger and Rigidbody can either be on the tracked controller or a child of
         // tracked controller that has the DirectSelectorTip component. 
         // Trigger enter and exit are public methods to allow DirectSelectorTip to provide 
         // collision notifications to the selector.

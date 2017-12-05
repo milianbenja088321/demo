@@ -11,7 +11,7 @@ public class VRInteractable : ExposableMonobehaviour {
 	public bool Interactable = true;
 
 	/// <summary>
-	/// Requires a rigidbody
+	/// Requires a Rigidbody
 	/// </summary>
 	private Rigidbody rb3d;
 
@@ -51,12 +51,12 @@ public class VRInteractable : ExposableMonobehaviour {
 	}
 
 	/// <summary>
-	/// Ignores the colliders of the given rigidbody
+	/// Ignores the colliders of the given Rigidbody
 	/// </summary>
-	/// <param name="_rigidbody">Rigidbody.</param>
-	public void IgnoreColliders(Rigidbody _rigidbody)
+	/// <param name="_Rigidbody">Rigidbody.</param>
+	public void IgnoreColliders(Rigidbody _Rigidbody)
 	{
-		Collider[] colliders = _rigidbody.GetComponentsInChildren<Collider>();
+		Collider[] colliders = _Rigidbody.GetComponentsInChildren<Collider>();
 		IgnoreColliders3D (colliders, mColliders3D.ToArray());
 	}
 
@@ -71,12 +71,12 @@ public class VRInteractable : ExposableMonobehaviour {
 	}
 
 	/// <summary>
-	/// Removes the physics ignore for the given rigidbody
+	/// Removes the physics ignore for the given Rigidbody
 	/// </summary>
-	/// <param name="_rigidbody">Rigidbody.</param>
-	public void RemoveIgnoreColliders(Rigidbody _rigidbody)
+	/// <param name="_Rigidbody">Rigidbody.</param>
+	public void RemoveIgnoreColliders(Rigidbody _Rigidbody)
 	{
-		Collider[] colliders = _rigidbody.GetComponentsInChildren<Collider>();
+		Collider[] colliders = _Rigidbody.GetComponentsInChildren<Collider>();
 		IgnoreColliders3D (colliders, mColliders3D.ToArray(), false);
 	}
 

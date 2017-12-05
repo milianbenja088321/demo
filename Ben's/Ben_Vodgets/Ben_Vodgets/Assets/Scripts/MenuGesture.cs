@@ -9,6 +9,7 @@ public class MenuGesture : MonoBehaviour
 {
 
     public GameObject worldMenu = null;
+    public GameObject Menu = null;
 
     bool isOpen = false;
 
@@ -35,10 +36,12 @@ public class MenuGesture : MonoBehaviour
         if(controllerRot >= 80 && controllerRot < 110)
         {
             worldMenu.SetActive(true);
+            Menu.SetActive(true);
         }
         else
         {
             worldMenu.SetActive(false);
+            Menu.SetActive(false);
         }
     }
 }
