@@ -12,7 +12,7 @@ public class Laser : SteamVR_TrackedController
     public float angle = 30;
     public int lengthOfRay = 7;
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         controller = GetComponent<SteamVR_TrackedController>();
 
@@ -54,7 +54,7 @@ public class Laser : SteamVR_TrackedController
                 if (l.type == Interactive.InteractiveTypes.Button)
                 {
                     Button b = l.gameObject.GetComponent<Button>();
-                    if(b != null)
+                    if (b != null)
                     {
                         b.onClick.Invoke();
                     }
@@ -92,7 +92,6 @@ public class Laser : SteamVR_TrackedController
         {
             currFocus = null;
         }
-
     }
 
     public override void OnTriggerClicked(ClickedEventArgs e)

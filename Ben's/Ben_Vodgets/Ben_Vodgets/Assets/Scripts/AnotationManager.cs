@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnotationManager : MonoBehaviour
 {
-
+    private enum Options { backButton = 0, moreButton, }
     public List<GameObject> annotations;
     public GameObject single;
 
