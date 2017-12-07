@@ -85,6 +85,7 @@
     <Compile Include="Assets\buttonMove.cs" />
     <Compile Include="Assets\graph-visualizer-master\Assets\GraphVisualizer\Clients\GraphVisualizerClient.cs" />
     <Compile Include="Assets\MouseFollow.cs" />
+    <Compile Include="Assets\Scripts\AnimationEvent.cs" />
     <Compile Include="Assets\Scripts\AnotationManager.cs" />
     <Compile Include="Assets\Scripts\CharacterController.cs" />
     <Compile Include="Assets\Scripts\FollowMouse.cs" />

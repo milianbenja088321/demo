@@ -10,8 +10,8 @@ public class Laser : SteamVR_TrackedController
     LineRenderer line;
     GameObject currFocus = null;
 
-    public float angle = 30;
-    public int lengthOfRay = 7;
+    public float angle = 45;
+    public int lengthOfRay = 10;
 
     private void Awake()
     {
