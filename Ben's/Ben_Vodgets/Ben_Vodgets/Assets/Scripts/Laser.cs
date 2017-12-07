@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+//[RequireComponent(typeof(LineRenderer))]
 public class Laser : SteamVR_TrackedController
 {
-
+    public GameObject ray; 
     LineRenderer line;
-    SteamVR_TrackedController controller = null;
     GameObject currFocus = null;
 
     public float angle = 30;
     public int lengthOfRay = 7;
-    // Use this for initialization
-    private void Start()
+
+    private void Awake()
     {
-        controller = GetComponent<SteamVR_TrackedController>();
+        this.TriggerClicked += OnClicked;
+        this.TriggerUnclicked += OnUnClicked;
 
-        controller.TriggerClicked += OnClicked;
-        controller.TriggerUnclicked += OnUnClicked;
-
-        line = this.GetComponent<LineRenderer>();
-
+        line = ray.GetComponent<LineRenderer>();
     }
 
     void OnClicked(object sender, ClickedEventArgs e)
@@ -32,8 +30,8 @@ public class Laser : SteamVR_TrackedController
     {
         line.enabled = false;
 
-        Vector3 cVel = SteamVR_Controller.Input((int)controller.controllerIndex).velocity;
-        Vector3 aVel = SteamVR_Controller.Input((int)controller.controllerIndex).angularVelocity;
+        Vector3 cVel = SteamVR_Controller.Input((int)this.controllerIndex).velocity;
+        Vector3 aVel = SteamVR_Controller.Input((int)this.controllerIndex).angularVelocity;
 
         if (currFocus != null)
         {
@@ -71,20 +69,22 @@ public class Laser : SteamVR_TrackedController
 
 
 
-        line.SetPosition(0, this.transform.position);
-        Quaternion q = Quaternion.AngleAxis(angle, transform.right);
-        Vector3 v = q * (this.transform.forward * lengthOfRay);
-        Vector3 targetPos = this.transform.position + v;
-        line.SetPosition(1, targetPos);
+        //line.SetPosition(0, this.transform.position);
+        //Quaternion q = Quaternion.AngleAxis(angle, transform.right);
+        //Vector3 v = q * (this.transform.forward * lengthOfRay);
+        //Vector3 targetPos = this.transform.position + v;
+        //line.SetPosition(1, targetPos);
 
         // hold info for what ever the ray hits
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, v, out hit, lengthOfRay))
+        if (Physics.Raycast(this.transform.position, ray.transform.forward, out hit, lengthOfRay))
         {
+            line.SetPosition(1, ray.transform.InverseTransformPoint( hit.point ) );
+
             currFocus = hit.collider.gameObject;
 
             if (currFocus.gameObject.tag != "No Interaction")
-                SteamVR_Controller.Input((int)controller.controllerIndex).TriggerHapticPulse(3999);
+                SteamVR_Controller.Input((int)this.controllerIndex).TriggerHapticPulse(3999);
 
             //print(hit.collider.gameObject.name);
         }
