@@ -112,7 +112,7 @@ public class Laser : SteamVR_TrackedController
                 if (l.type == Interactive.InteractiveTypes.Marker)
                 {
                     AnotationManager canvs = currFocus.GetComponent<AnotationManager>();
-                    canvs.single.SetActive(true);
+                    //canvs.single.SetActive(true);
                 }
 
             }

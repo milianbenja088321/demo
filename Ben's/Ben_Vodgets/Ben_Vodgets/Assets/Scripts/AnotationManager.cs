@@ -1,29 +1,67 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnotationManager : MonoBehaviour
 {
-    private enum Options { backButton = 0, moreButton, }
-    public List<GameObject> annotations;
-    public GameObject single;
+    private enum Options { Pause = 0, Play }
+    public GameObject Canvas = null;
+    public PlayableClip model = null;
+    public Animation anim = null;
+    public AnimationState state = null;
+    public Text Text = null;
+    public bool isPlaying = false;
 
-    public void DeactivateAll()
+    private void Start()
     {
-        foreach (GameObject anot in annotations)
+        model.speed = 0;
+        anim = GetComponent<Animation>();
+    }
+
+    public void View(GameObject _object)
+    {
+        _object.SetActive(true);
+    }
+
+    public void Hide(GameObject _object)
+    {
+        _object.SetActive(false);
+    }
+
+    public void SetText(int _index)
+    {
+        switch (_index)
         {
-            anot.SetActive(false);
+            case 0:
+                Text.text = "Test Scenario One";
+                break;
+            case 1:
+                Text.text = "Test Scenario Two";
+                break;
+            case 2:
+                Text.text = "Test Scenario Three";
+                break;
         }
     }
 
-    public void View(int index)
+    public void Play()
     {
-        annotations[index].SetActive(true);
+       // model.playableGraph.Play();
+        model.speed = (int)Options.Play;
+        isPlaying = true;
     }
 
-    public void Hide(int index)
+    public void Pause()
     {
-        annotations[index].SetActive(false);
+        model.speed = (int)Options.Pause;
+        isPlaying = false;
+    }
+
+    public void Rewind()
+    {
+        print("Rewind");
+        model.speed = -1;
     }
 
 

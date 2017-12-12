@@ -4,37 +4,21 @@ using UnityEngine;
 
 public class AnimationEvent : MonoBehaviour
 {
-    AnotationManager anoManager;
-    public Dictionary<GameObject, string> annotationDictionary;
+    public AnotationManager anoManager = null;
 
-
-    [SerializeField] short play = 1;
-
-    private void Awake()
+    void Pause()
     {
-
-    }
-    public void PrintEvent(string s)
-    {
-       
+        anoManager.Pause();
     }
 
-    public void ShowPresentation(string _value)
+    void Show()
     {
+        anoManager.View(anoManager.Canvas);
     }
 
-
-    private void Update()
+    void StepText(int index)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (play == 0)
-                play = 1;
-            else
-                play = 0;
-
-            this.GetComponent<Animator>().speed = play;
-
-        }
+        anoManager.SetText(index);
     }
+
 }
