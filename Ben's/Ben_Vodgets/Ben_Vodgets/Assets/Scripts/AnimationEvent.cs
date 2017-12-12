@@ -8,19 +8,15 @@ public class AnimationEvent : MonoBehaviour
     public Dictionary<GameObject, string> annotationDictionary;
 
 
-    [SerializeField] short play = 0;
+    [SerializeField] short play = 1;
 
     private void Awake()
     {
-        for (int i = 0; i < anoManager.annotations.Count; i++) { }
-        //{
-        //    annotationDictionary.Add(anoManager.annotations[i], anoManager.annotations[i].name);
-        //}
+
     }
     public void PrintEvent(string s)
     {
-        Debug.Log("PrintEvent: " + s + " called at: " + Time.time);
-        this.GetComponent<Animator>().speed = play;
+       
     }
 
     public void ShowPresentation(string _value)
