@@ -21,4 +21,9 @@ public class AnimationEvent : MonoBehaviour
         anoManager.SetText(index);
     }
 
+    void ShowAnnotations(GameObject _obj)
+    {
+        anoManager.View(_obj);
+    }
+
 }

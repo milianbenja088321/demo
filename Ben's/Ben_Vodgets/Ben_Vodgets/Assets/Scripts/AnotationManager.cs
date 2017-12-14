@@ -52,10 +52,18 @@ public class AnotationManager : MonoBehaviour
         isPlaying = true;
     }
 
+    public void StartAnimation()
+    {
+        model.speed = (int)Options.Play;
+    }
+
     public void Pause()
     {
-        model.speed = (int)Options.Pause;
-        isPlaying = false;
+        if (model.speed != 0)
+        {
+            model.speed = (int)Options.Pause;
+            isPlaying = false;
+        }
     }
 
     public void Rewind()
