@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class AnotationManager : MonoBehaviour
 {
     private enum Options { Pause = 0, Play }
+    public bool isPlaying = false;
     public GameObject Canvas = null;
     public PlayableClip model = null;
     public AnimationState state = null;
     public Text Text = null;
-    public bool isPlaying = false;
     public GameObject[] anoObjList = null;
+    public AudioSource load;
 
     private void Start()
     {
@@ -51,9 +52,9 @@ public class AnotationManager : MonoBehaviour
         isPlaying = true;
     }
 
-    public void StartAnimation()
+    public void PlayAudio()
     {
-        model.speed = (int)Options.Play;
+        load.Play();
     }
 
     public void Pause()

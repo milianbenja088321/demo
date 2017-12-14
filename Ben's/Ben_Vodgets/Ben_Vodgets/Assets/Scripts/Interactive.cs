@@ -5,20 +5,42 @@ using UnityEngine.UI;
 
 public class Interactive : MonoBehaviour
 {
-    public enum InteractiveTypes { Button = 0, Grab, Marker, None = 50 };
+    public enum InteractiveTypes
+    {
+        Button = 0,
+        Grab,
+        Marker,
+        ObjButton,
+        Canvas,
+        None = 5000
+    };
+
     public InteractiveTypes type = InteractiveTypes.None;
     public Vector3 endPosition = Vector3.zero;
+    public Button objButton = null;
+    public GameObject presentation = null;
 
     // Use this for initialization
-    public void something()
+    public void InvokeButtonClick()
     {
-        print("Something");
         Button butt = this.GetComponent<Button>();
 
         if (butt != null)
         {
             butt.onClick.Invoke();
         }
+    }
+
+    public void ObjectClick()
+    {
+        if (objButton != null)
+            objButton.onClick.Invoke();
+    }
+
+    public void ShowCanvas()
+    {
+        if (presentation != null)
+            presentation.SetActive(true);
     }
 
     public void SetActive(GameObject _annotation)
