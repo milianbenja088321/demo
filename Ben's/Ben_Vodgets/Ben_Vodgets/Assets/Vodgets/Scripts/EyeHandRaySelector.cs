@@ -33,7 +33,7 @@ namespace Vodgets
         protected override void SetCursor()
         {
 
-            eyepos = UnityEngine.XR.InputTracking.GetLocalPosition((isRightEyeDominant) ? UnityEngine.XR.XRNode.RightEye : UnityEngine.XR.XRNode.LeftEye);
+            eyepos = UnityEngine.VR.InputTracking.GetLocalPosition((isRightEyeDominant) ? UnityEngine.VR.VRNode.RightEye : UnityEngine.VR.VRNode.LeftEye);
             eyepos = cameraRig.TransformPoint(eyepos);
 
             if (tip != null)
@@ -104,7 +104,7 @@ namespace Vodgets
             }
             else
             {
-                Vector3 p = UnityEngine.XR.InputTracking.GetLocalPosition((isRightEyeDominant) ? UnityEngine.XR.XRNode.RightEye : UnityEngine.XR.XRNode.LeftEye);
+                Vector3 p = UnityEngine.VR.InputTracking.GetLocalPosition((isRightEyeDominant) ? UnityEngine.VR.VRNode.RightEye : UnityEngine.VR.VRNode.LeftEye);
                 eyepos = transform.parent.TransformPoint(p);
 
                 Vector3 tippos = (tip != null) ? tip.position : transform.position;

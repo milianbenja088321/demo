@@ -8,15 +8,14 @@ public class AnotationManager : MonoBehaviour
     private enum Options { Pause = 0, Play }
     public GameObject Canvas = null;
     public PlayableClip model = null;
-    public Animation anim = null;
     public AnimationState state = null;
     public Text Text = null;
     public bool isPlaying = false;
+    public GameObject[] anoObjList = null;
 
     private void Start()
     {
         model.speed = 0;
-        anim = GetComponent<Animation>();
     }
 
     public void View(GameObject _object)
