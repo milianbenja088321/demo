@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Ben test.unity
-  isLoaded: 1
-  isActive: 1
